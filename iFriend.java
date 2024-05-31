@@ -1,5 +1,60 @@
 import java.util.*;
-import java.time.LocalDate; 
+import java.time.LocalDate;
+class Contact{
+	private String id;
+	private String name;
+	private String phoneNumber;
+	private String companyName;
+	private double salary;
+	private String birthday;
+	
+	Contact(String id, String name, String phoneNumber, String companyName, double salary, String birthday){
+		this.id=id;
+		this.name=name;
+		this.phoneNumber=phoneNumber;
+		this.companyName=companyName;
+		this.salary=salary;
+		this.birthday=birthday;
+	}
+	
+	public void setId(String id){
+		this.id=id;
+	}
+	public void setName(String name){
+		this.name=name;
+	}
+	public void setPhoneNumber(String phoneNumber){
+		this.phoneNumber=phoneNumber;
+	}
+	public void setCompanyName(String companyName){
+		this.companyName=companyName;
+	}
+	public void setSalary(double salary){
+		this.salary=salary;
+	}
+	public void setBirthday(String birthday){
+		this.birthday=birthday;
+	}
+	
+	public String getId(){
+		return id;
+	}
+	public String getName(){
+		return name;
+	}
+	public String getPhoneNumber(){
+		return phoneNumber;
+	}
+	public String getCompanyName(){
+		return companyName;
+	}
+	public double getSalary(){
+		return salary;
+	}
+	public String getBirthday(){
+		return birthday;
+	}
+} 
 class iFriend{
 //------------------------------MAIN METHOD------------------------------//
 
@@ -10,12 +65,14 @@ class iFriend{
 //------------------------------STATIC VARIABLES------------------------------//
 
 	public static int IDNum=1;
-	public static String[] ContactIDArray = new String[0];
-	public static String[] NameArray = new String[0];
-	public static String[] PhoneNoArray = new String[0];
-	public static String[] CompanyArray = new String[0];
-	public static double[] SalaryArray = new double[0];
-	public static String[] BirthdayArray = new String[0];
+	//public static String[] ContactIDArray = new String[0];
+	//public static String[] NameArray = new String[0];
+	//public static String[] PhoneNoArray = new String[0];
+	//public static String[] CompanyArray = new String[0];
+	//public static double[] SalaryArray = new double[0];
+	//public static String[] BirthdayArray = new String[0];
+	
+	public static Contact[] contactArray = new Contact[0];
 	
 //------------------------------SUB METHODS------------------------------//	 
 
@@ -23,7 +80,7 @@ class iFriend{
 	
 		public static void HomePage(){
 		Scanner input=new Scanner(System.in);
-		clearConsole();
+		
 		System.out.println("\n");
 		System.out.println("              /$$ /$$$$$$$$ /$$$$$$$  /$$$$$$ /$$$$$$$$ /$$   /$$ /$$$$$$$     ");
 		System.out.println("              |__/| $$_____/| $$__  $$|_  $$_/| $$_____/| $$$ | $$| $$__  $$   ");
@@ -85,9 +142,9 @@ class iFriend{
 		Scanner input=new Scanner(System.in);
 		
 		double salary=0;
-		String ID="";
-		String tele="";
-		String Bday="";
+		String id="";
+		String phoneNumber="";
+		String birthday="";
 		
 	do{
 		clearConsole();
@@ -95,19 +152,19 @@ class iFriend{
 		System.out.println("|                ADD CONTACT TO THE LIST                     |");
 		System.out.println("+------------------------------------------------------------+\n");
 		
-		ID=IDGenerator(IDNum++); //------ calling IDGenerator --------
-		System.out.println("\n "+ID);
+		id=IDGenerator(IDNum++); //------ calling IDGenerator --------
+		System.out.println("\n "+id);
 		System.out.println("=======");
 		System.out.print("\nName\t\t: ");
 		String name=input.nextLine();
 		
 	do{
 		System.out.print("Phone Number\t: ");
-		tele=input.nextLine();
-	}while(!PhoneNoValidator(tele));
+		phoneNumber=input.nextLine();
+	}while(!PhoneNoValidator(phoneNumber));
 		
 		System.out.print("Company Name\t: ");
-		String company=input.nextLine();
+		String companyName=input.nextLine();
 		
 	do{
 		System.out.print("Salary\t\t: ");
@@ -117,8 +174,8 @@ class iFriend{
 	
 	do{
 		System.out.print("B'Day(YYYY-MM-DD): ");
-		Bday=input.next();
-		if(!BirthdayValidator(Bday)){
+		birthday=input.next();
+		if(!BirthdayValidator(birthday)){
 			System.out.println("\n\tInvalid BirthDay...");
 			System.out.print("\nDo You Want to Input BirthDay Again ? [Y/N] : ");
 			String yn=input.next();
@@ -136,12 +193,9 @@ class iFriend{
 		
 		ArrayExtender();
 		
-		ContactIDArray[ContactIDArray.length-1]=ID;
-		NameArray[NameArray.length-1]=name;
-		PhoneNoArray[PhoneNoArray.length-1]=tele;
-		CompanyArray[CompanyArray.length-1]=company;
-		SalaryArray[SalaryArray.length-1]=salary;
-		BirthdayArray[BirthdayArray.length-1]=Bday;
+		Contact contact = new Contact(id, name, phoneNumber, companyName, salary, birthday);
+		contactArray[contactArray.length-1]=contact;
+		
 		
 		System.out.println("\n\tCustomer Added Successfully..!");
             System.out.print("\n\nDo You Want To Add Another Customer ? [Y/N] ->  ");
@@ -174,12 +228,12 @@ class iFriend{
 		int i = SEARCHER(search);
 		
 		if(i != -1){
-			System.out.println("\n\tContact ID\t\t: "+ContactIDArray[i]);
-			System.out.println("\tName\t\t\t: "+NameArray[i]);
-			System.out.println("\tPhone Number\t\t: "+PhoneNoArray[i]);
-			System.out.println("\tCompany Name\t\t: "+CompanyArray[i]);
-			System.out.println("\tSalary\t\t\t: "+SalaryArray[i]);
-			System.out.println("\tB'Day(YYYY-MM-DD)\t: "+BirthdayArray[i]);
+			System.out.println("\n\tContact ID\t\t: "+contactArray[i].getId());
+			System.out.println("\tName\t\t\t: "+contactArray[i].getName());
+			System.out.println("\tPhone Number\t\t: "+contactArray[i].getPhoneNumber());
+			System.out.println("\tCompany Name\t\t: "+contactArray[i].getCompanyName());
+			System.out.println("\tSalary\t\t\t: "+contactArray[i].getSalary());
+			System.out.println("\tB'Day(YYYY-MM-DD)\t: "+contactArray[i].getBirthday());
 			System.out.println("\n\nWhat Do You Want To Update ? ");
 			System.out.println("\n\t[01] Name ");
 			System.out.println("\t[02] Phone Number ");
@@ -201,10 +255,10 @@ class iFriend{
 					System.out.print("\nInput New Name - ");
 					String newName=input.nextLine();
 					System.out.print("\nConfirm New Name - ");
-					String confirmNewName=input.nextLine();
+					String conformNewName=input.nextLine();
 					
-				if(newName.equalsIgnoreCase(confirmNewName)){
-					NameArray[i]=newName;
+				if(newName.equalsIgnoreCase(conformNewName)){
+					contactArray[i].setName(newName);
 					System.out.println("\n\t Contact Have Been Updated Successfully..!");
 					System.out.print("\nDo You Want To Update Another Contact ? [Y/N] -> ");
 					String yn=input.next();
@@ -230,10 +284,10 @@ class iFriend{
 					System.out.print("\nInput New Phone Number - ");
 					newPhoneNo=input.nextLine();
 					System.out.print("\nConfirm New Phone Number - ");
-					String confirmNewPhoneNo=input.nextLine();
-					if(newPhoneNo.equals(confirmNewPhoneNo)){
+					String conformNewPhoneNo=input.nextLine();
+					if(newPhoneNo.equals(conformNewPhoneNo)){
 						if(PhoneNoValidator(newPhoneNo)){
-							PhoneNoArray[i]=newPhoneNo;
+							contactArray[i].setPhoneNumber(newPhoneNo);
 							System.out.println("\n\t Contact Have Been Updated Successfully..!");
 							System.out.print("\nDo You Want To Update Another Contact ? [Y/N] -> ");
 							String yn=input.next();
@@ -259,10 +313,10 @@ class iFriend{
 					System.out.print("\nInput New Company Name - ");
 					String newCoName=input.nextLine();
 					System.out.print("\nConfirm New Company Name - ");
-					String confirmNewCoName=input.nextLine();
+					String conformNewCoName=input.nextLine();
 					
-					if(newCoName.equalsIgnoreCase(confirmNewCoName)){
-						CompanyArray[i]=newCoName;
+					if(newCoName.equalsIgnoreCase(conformNewCoName)){
+						contactArray[i].setCompanyName(newCoName);
 						System.out.println("\n\t Contact Have Been Updated Successfully..!");
 						System.out.print("\nDo You Want To Update Another Contact ? [Y/N] -> ");
 						String yn=input.next();
@@ -286,10 +340,10 @@ class iFriend{
 					System.out.print("\nInput New Salary - ");
 					double newSalary=input.nextDouble();
 					System.out.print("\nConfirm New Salary - ");
-					double confirmNewSalary=input.nextDouble();
-					if(newSalary==confirmNewSalary){
+					double conformNewSalary=input.nextDouble();
+					if(newSalary==conformNewSalary){
 						if(SalaryValidator(newSalary)){
-							SalaryArray[i]=newSalary;
+							contactArray[i].setSalary(newSalary);
 							System.out.println("\n\t Contact Has Been Updated Successfully..!");
 							System.out.print("\nDo You Want To Update Another Contact ?  [Y/N] -> ");
 							String yn=input.next();
@@ -345,12 +399,12 @@ class iFriend{
 		int i = SEARCHER(search);
 		
 		if(i != -1){
-			System.out.println("\n\tContact ID\t\t: "+ContactIDArray[i]);
-			System.out.println("\n\tName\t\t\t: "+NameArray[i]);
-			System.out.println("\tPhone Number\t\t: "+PhoneNoArray[i]);
-			System.out.println("\tCompany Name\t\t: "+CompanyArray[i]);
-			System.out.println("\tSalary\t\t\t: "+SalaryArray[i]);
-			System.out.println("\tB'Day(YYYY-MM-DD)\t: "+BirthdayArray[i]);
+			System.out.println("\n\tContact ID\t\t: "+contactArray[i].getId());
+			System.out.println("\n\tName\t\t\t: "+contactArray[i].getName());
+			System.out.println("\tPhone Number\t\t: "+contactArray[i].getPhoneNumber());
+			System.out.println("\tCompany Name\t\t: "+contactArray[i].getCompanyName());
+			System.out.println("\tSalary\t\t\t: "+contactArray[i].getSalary());
+			System.out.println("\tB'Day(YYYY-MM-DD)\t: "+contactArray[i].getBirthday());
 			System.out.print("\n\nWhat Do You Want To Delete This Contact ? [Y/N] -> ");
 			String yn=input.next();
 					if(yn.equalsIgnoreCase("Y")){
@@ -406,12 +460,12 @@ class iFriend{
 			int i = SEARCHER(search);
 			
 			if(i != -1){
-				System.out.println("\n\tContact ID\t\t: "+ContactIDArray[i]);
-				System.out.println("\n\tName\t\t\t: "+NameArray[i]);
-				System.out.println("\tPhone Number\t\t: "+PhoneNoArray[i]);
-				System.out.println("\tCompany Name\t\t: "+CompanyArray[i]);
-				System.out.println("\tSalary\t\t\t: "+SalaryArray[i]);
-				System.out.println("\tB'Day(YYYY-MM-DD)\t: "+BirthdayArray[i]);
+				System.out.println("\n\tContact ID\t\t: "+contactArray[i].getId());
+				System.out.println("\n\tName\t\t\t: "+contactArray[i].getName());
+				System.out.println("\tPhone Number\t\t: "+contactArray[i].getPhoneNumber());
+				System.out.println("\tCompany Name\t\t: "+contactArray[i].getCompanyName());
+				System.out.println("\tSalary\t\t\t: "+contactArray[i].getSalary());
+				System.out.println("\tB'Day(YYYY-MM-DD)\t: "+contactArray[i].getBirthday());
 				System.out.print("\n\nDo You Want To Search This Contact ? [Y/N] -> ");
 				String YN=input.next();
 					if(YN.equalsIgnoreCase("Y")){
@@ -477,10 +531,10 @@ class iFriend{
 					System.out.println("| Contact ID   |   Name    |   Phone Number   |   Company   |   Salary   |   Birthday   |");
 					System.out.println("+---------------------------------------------------------------------------------------+");
                     
-                    sortByName(NameArray, ContactIDArray, PhoneNoArray, CompanyArray, SalaryArray,  BirthdayArray);
+                    Contact[] sortedByNameArray = sortByName(contactArray);
                     
-                    for (int i = 0; i < NameArray.length; i++) {
-						System.out.printf("| %-12s | %-9s | %-16s | %-11s | %-10s | %-12s |\n",ContactIDArray[i], NameArray[i], PhoneNoArray[i], CompanyArray[i], SalaryArray[i], BirthdayArray[i]);
+                    for (int i = 0; i < sortedByNameArray.length; i++) {
+						System.out.printf("| %-12s | %-9s | %-16s | %-11s | %-10s | %-12s |\n",sortedByNameArray[i].getId(), sortedByNameArray[i].getName(), sortedByNameArray[i].getPhoneNumber(), sortedByNameArray[i].getCompanyName(), sortedByNameArray[i].getSalary(), sortedByNameArray[i].getBirthday());
 					}
 
 					System.out.println("+---------------------------------------------------------------------------------------+");
@@ -510,10 +564,10 @@ class iFriend{
 					System.out.println("| Contact ID   |   Name    |   Phone Number   |   Company   |   Salary   |   Birthday   |");
 					System.out.println("+---------------------------------------------------------------------------------------+");
                     
-                    sortBySalary(NameArray, ContactIDArray, PhoneNoArray, CompanyArray, SalaryArray,  BirthdayArray);
+                    Contact[] sortedBySalaryArray = sortBySalary(contactArray);
                     
-                    for (int i = 0; i < SalaryArray.length; i++) {
-						System.out.printf("| %-12s | %-9s | %-16s | %-11s | %-10s | %-12s |\n",ContactIDArray[i], NameArray[i], PhoneNoArray[i], CompanyArray[i], SalaryArray[i], BirthdayArray[i]);
+                    for (int i = 0; i < contactArray.length; i++) {
+						System.out.printf("| %-12s | %-9s | %-16s | %-11s | %-10s | %-12s |\n",sortedBySalaryArray[i].getId(), sortedBySalaryArray[i].getName(), sortedBySalaryArray[i].getPhoneNumber(), sortedBySalaryArray[i].getCompanyName(), sortedBySalaryArray[i].getSalary(), sortedBySalaryArray[i].getBirthday());
 					}
 
 					System.out.println("+---------------------------------------------------------------------------------------+");
@@ -543,10 +597,10 @@ class iFriend{
 					System.out.println("| Contact ID   |   Name    |   Phone Number   |   Company   |   Salary   |   Birthday   |");
 					System.out.println("+---------------------------------------------------------------------------------------+");
                     
-                    sortByBirthday(NameArray, ContactIDArray, PhoneNoArray, CompanyArray, SalaryArray,  BirthdayArray);
+                    Contact[] sortedByBirthdayArray = sortByBirthday(contactArray);
                     
-                    for (int i = 0; i < BirthdayArray.length; i++) {
-						System.out.printf("| %-12s | %-9s | %-16s | %-11s | %-10s | %-12s |\n",ContactIDArray[i], NameArray[i], PhoneNoArray[i], CompanyArray[i], SalaryArray[i], BirthdayArray[i]);
+                    for (int i = 0; i < contactArray.length; i++) {
+						System.out.printf("| %-12s | %-9s | %-16s | %-11s | %-10s | %-12s |\n",sortedByBirthdayArray[i].getId(), sortedByBirthdayArray[i].getName(), sortedByBirthdayArray[i].getPhoneNumber(), sortedByBirthdayArray[i].getCompanyName(), sortedByBirthdayArray[i].getSalary(), sortedByBirthdayArray[i].getBirthday());
 					}
 
 					System.out.println("+---------------------------------------------------------------------------------------+");
@@ -585,11 +639,11 @@ class iFriend{
 	
 	//++++++++++ METHOD-PhoneNoValidator ++++++++++//	
 		
-	public static boolean PhoneNoValidator(String tele){
+	public static boolean PhoneNoValidator(String phoneNumber){
 		Scanner input=new Scanner(System.in);	
 		
 		//ASCii Value of '0' = 48//
-		if(tele.charAt(0)!=48 || tele.length()!=10){
+		if(phoneNumber.charAt(0)!=48 || phoneNumber.length()!=10){
 			System.out.println("\n\tInvalid Phone Number...");
 			System.out.print("\nDo You Want to ADD Phoe Number Again ? [Y/N] : ");
 			String yn=input.next();
@@ -626,12 +680,12 @@ class iFriend{
 	
 	//++++++++++ METHOD-BirthdayValidator ++++++++++//	
 		
-	public static boolean BirthdayValidator(String Bday){
+	public static boolean BirthdayValidator(String birthday){
 		
-		if((Bday.substring(4,5)).equals("-") && (Bday.substring(7,8)).equals("-")){
-			int sub1=Integer.valueOf(Bday.substring(0,4));
-			int sub2=Integer.valueOf(Bday.substring(5,7));
-			int sub3=Integer.valueOf(Bday.substring(8,10));
+		if((birthday.substring(4,5)).equals("-") && (birthday.substring(7,8)).equals("-")){
+			int sub1=Integer.valueOf(birthday.substring(0,4));
+			int sub2=Integer.valueOf(birthday.substring(5,7));
+			int sub3=Integer.valueOf(birthday.substring(8,10));
 			if(sub1==LocalDate.now().getYear() && sub2==LocalDate.now().getMonthValue() && sub3==LocalDate.now().getDayOfMonth()){
 				return false;
 			}else if(sub1 > (LocalDate.now().getYear()) || ((sub2 > 12) || (sub2 <= 0)) || ((sub3 > 31) || (sub3 <= 0))){
@@ -671,66 +725,36 @@ class iFriend{
 	
 	public static void ArrayNarrower(int n){
 		
-		String[] tempContactIDArray = new String[ContactIDArray.length-1];
-		String[] tempNameArray = new String[NameArray.length-1];
-		String[] tempPhoneNoArray = new String[PhoneNoArray.length-1];
-		String[] tempCompanyArray = new String[CompanyArray.length-1];
-		double[] tempSalaryArray = new double[SalaryArray.length-1];
-		String[] tempBirthdayArray = new String[BirthdayArray.length-1];
+		Contact[] tempContactarray=new Contact[contactArray.length-1];
 		
-		for(int i=0,a=0;i<NameArray.length;i++){
+		for(int i=0,a=0;i<contactArray.length;i++){
             if(i!=n){
-				tempContactIDArray[a]=ContactIDArray[i];
-                tempNameArray[a]=NameArray[i];
-				tempPhoneNoArray[a]=PhoneNoArray[i];
-				tempCompanyArray[a]=CompanyArray[i];
-				tempSalaryArray[a]=SalaryArray[i];
-				tempBirthdayArray[a]=BirthdayArray[i];
+				tempContactarray[a]=contactArray[a];
 				a++;
             }
         }
-				ContactIDArray=tempContactIDArray;
-				NameArray=tempNameArray;
-				PhoneNoArray=tempPhoneNoArray;
-				CompanyArray=tempCompanyArray;
-				SalaryArray=tempSalaryArray;
-				BirthdayArray=tempBirthdayArray;
+				contactArray=tempContactarray;
 		}
 		
 	//++++++++++ METHOD-ArrayExtender ++++++++++//		
 	
 	public static void ArrayExtender(){
 		
-		String[] tempContactIDArray = new String[ContactIDArray.length+1];
-		String[] tempNameArray = new String[NameArray.length+1];
-		String[] tempPhoneNoArray = new String[PhoneNoArray.length+1];
-		String[] tempCompanyArray = new String[CompanyArray.length+1];
-		double[] tempSalaryArray = new double[SalaryArray.length+1];
-		String[] tempBirthdayArray = new String[BirthdayArray.length+1];
+		Contact[] tempContactarray=new Contact[contactArray.length+1];
 		
-		for (int i = 0; i < NameArray.length; i++){
+		for (int i = 0; i < contactArray.length; i++){
 			
-			tempContactIDArray[i]=ContactIDArray[i];
-			tempNameArray[i]=NameArray[i];
-			tempPhoneNoArray[i]=PhoneNoArray[i];
-			tempCompanyArray[i]=CompanyArray[i];
-			tempSalaryArray[i]=SalaryArray[i];
-			tempBirthdayArray[i]=BirthdayArray[i];
+			tempContactarray[i]=contactArray[i];
 		}
-			ContactIDArray=tempContactIDArray;
-			NameArray=tempNameArray;
-			PhoneNoArray=tempPhoneNoArray;
-			CompanyArray=tempCompanyArray;
-			SalaryArray=tempSalaryArray;
-			BirthdayArray=tempBirthdayArray;
+			contactArray=tempContactarray;
 	}
 	
 	//++++++++++ METHOD-SEARCHER ++++++++++//	
 	
 	public static int SEARCHER(String search){
 		
-		for (int i = 0; i < NameArray.length ; i++){
-			if(NameArray[i].equalsIgnoreCase(search) || PhoneNoArray[i].equals(search)){
+		for (int i = 0; i < contactArray.length ; i++){
+			if(contactArray[i].getName().equalsIgnoreCase(search) || contactArray[i].getPhoneNumber().equals(search)){
 				return i;
 			}
 		}
@@ -739,107 +763,68 @@ class iFriend{
 	
 	//++++++++++ METHOD-SortByName ++++++++++// 
 	
-	private static void sortByName(String[] NameArray, String[] ContactIDArray, String[] PhoneNoArray, String[] CompanyArray, double[] SalaryArray, String[] BirthdayArray) {
-        for (int i = 0; i < NameArray.length - 1; i++) {
-            for (int j = i + 1; j < NameArray.length; j++) {
-                if (NameArray[i].compareTo(NameArray[j]) > 0) {
-                    
-                    String tempName = NameArray[i];
-                    NameArray[i] = NameArray[j];
-                    NameArray[j] = tempName;
+	private static Contact[] sortByName(Contact[] contactArray) {
+		Contact[] tempContactArray = new Contact[contactArray.length];
 
-                    String tempId = ContactIDArray[i];
-                    ContactIDArray[i] = ContactIDArray[j];
-                    ContactIDArray[j] = tempId;
-                    
-                    String tempnum = PhoneNoArray[i];
-                    PhoneNoArray[i] = PhoneNoArray[j];
-                    PhoneNoArray[j] = tempnum;
-                    
-                    String tempcompany = CompanyArray[i];
-                    CompanyArray[i] = CompanyArray[j];
-                    CompanyArray[j] = tempcompany;
-                    
-                    double tempsalary = SalaryArray[i];
-                    SalaryArray[i] = SalaryArray[j];
-                    SalaryArray[j] = tempsalary;
-                    
-                    String tempbirth = BirthdayArray[i];
-                    BirthdayArray[i] = BirthdayArray[j];
-                    BirthdayArray[j] = tempbirth;
+        for(int i=0; i<contactArray.length; i++){
+			tempContactArray[i]=contactArray[i];
+        }
+
+        for (int i = 0; i < contactArray.length - 1; i++) {
+            for (int j = i + 1; j < contactArray.length; j++) {
+                if (contactArray[i].getName().compareTo(contactArray[j].getName()) > 0) {
+					
+					Contact tempContact = tempContactArray[i];
+					tempContactArray[i]=tempContactArray[j];
+					tempContactArray[j]=tempContact;
                 }
             }
         }
+        return tempContactArray;
     }
     
     //++++++++++ METHOD-SortBySalary ++++++++++// 
 	
-	private static void sortBySalary(String[] NameArray, String[] ContactIDArray, String[] PhoneNoArray, String[] CompanyArray, double[] SalaryArray, String[] BirthdayArray) {
-        for (int i = 0; i < SalaryArray.length - 1; i++) {
-            for (int j = i + 1; j < SalaryArray.length; j++) {
-                if (SalaryArray[i] > SalaryArray[j]) {
-                    
-                    String tempName = NameArray[i];
-                    NameArray[i] = NameArray[j];
-                    NameArray[j] = tempName;
+	private static Contact[] sortBySalary(Contact[] contactArray) {
+		Contact[] tempContactArray = new Contact[contactArray.length];
 
-                    String tempId = ContactIDArray[i];
-                    ContactIDArray[i] = ContactIDArray[j];
-                    ContactIDArray[j] = tempId;
-                    
-                    String tempnum = PhoneNoArray[i];
-                    PhoneNoArray[i] = PhoneNoArray[j];
-                    PhoneNoArray[j] = tempnum;
-                    
-                    String tempcompany = CompanyArray[i];
-                    CompanyArray[i] = CompanyArray[j];
-                    CompanyArray[j] = tempcompany;
-                    
-                    double tempsalary = SalaryArray[i];
-                    SalaryArray[i] = SalaryArray[j];
-                    SalaryArray[j] = tempsalary;
-                    
-                    String tempbirth = BirthdayArray[i];
-                    BirthdayArray[i] = BirthdayArray[j];
-                    BirthdayArray[j] = tempbirth;
-                }
+        for(int i=0; i<contactArray.length; i++){
+			tempContactArray[i]=contactArray[i];
+        }
+        
+        for (int i = 0; i < contactArray.length - 1; i++) {
+            for (int j = i + 1; j < contactArray.length; j++) {
+				if (Double.compare(contactArray[i].getSalary(), contactArray[j].getSalary()) > 0) {
+					
+					Contact tempContact = tempContactArray[i];
+					tempContactArray[i]=tempContactArray[j];
+					tempContactArray[j]=tempContact;
+				}
             }
         }
+        return tempContactArray;
     }
     
     //++++++++++ METHOD-SortByBirthday ++++++++++// 
 	
-	private static void sortByBirthday(String[] NameArray, String[] ContactIDArray, String[] PhoneNoArray, String[] CompanyArray, double[] SalaryArray, String[] BirthdayArray) {
-        for (int i = 0; i < BirthdayArray.length - 1; i++) {
-            for (int j = i + 1; j < BirthdayArray.length; j++) {
-                if (BirthdayArray[i].compareTo(BirthdayArray[j]) > 0) {
-                    
-                    String tempName = NameArray[i];
-                    NameArray[i] = NameArray[j];
-                    NameArray[j] = tempName;
+	private static Contact[] sortByBirthday(Contact[] contactArray) {
+		Contact[] tempContactArray = new Contact[contactArray.length];
 
-                    String tempId = ContactIDArray[i];
-                    ContactIDArray[i] = ContactIDArray[j];
-                    ContactIDArray[j] = tempId;
-                    
-                    String tempnum = PhoneNoArray[i];
-                    PhoneNoArray[i] = PhoneNoArray[j];
-                    PhoneNoArray[j] = tempnum;
-                    
-                    String tempcompany = CompanyArray[i];
-                    CompanyArray[i] = CompanyArray[j];
-                    CompanyArray[j] = tempcompany;
-                    
-                    double tempsalary = SalaryArray[i];
-                    SalaryArray[i] = SalaryArray[j];
-                    SalaryArray[j] = tempsalary;
-                    
-                    String tempbirth = BirthdayArray[i];
-                    BirthdayArray[i] = BirthdayArray[j];
-                    BirthdayArray[j] = tempbirth;
+        for(int i=0; i<contactArray.length; i++){
+			tempContactArray[i]=contactArray[i];
+        }
+        
+        for (int i = 0; i < contactArray.length - 1; i++) {
+            for (int j = i + 1; j < contactArray.length; j++) {
+                if (contactArray[i].getBirthday().compareTo(contactArray[j].getBirthday()) > 0) {
+					
+					Contact tempContact = tempContactArray[i];
+					tempContactArray[i]=tempContactArray[j];
+					tempContactArray[j]=tempContact;
                 }
             }
         }
+        return tempContactArray;
     }
 
 	//++++++++++ METHOD-clearConsole ++++++++++//		
